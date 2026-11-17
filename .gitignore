@@ -1,0 +1,9 @@
+# Lo genera la aplicación al ejecutarse
+vault_data/
+
+# Compilados
+*.class
+
+# Editores
+.vscode/
+.idea/
