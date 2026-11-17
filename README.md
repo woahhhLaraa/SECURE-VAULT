@@ -5,7 +5,7 @@ Proyecto final de Lenguajes y Paradigmas de Programación: baúl digital de secr
 ## Estructura
 
 ```
-SecureVault/
+SECURE-VAULT/
 ├── vault/
 │   ├── Secreto.java        (clase abstracta)
 │   ├── Credencial.java
@@ -24,7 +24,7 @@ SecureVault/
 
 ## Compilación y ejecución
 
-Desde la carpeta `SecureVault/`:
+Desde la carpeta `SECURE-VAULT/`:
 
 ```
 javac -encoding UTF-8 vault/*.java
