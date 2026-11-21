@@ -4,17 +4,20 @@ package vault;
 // Ejemplo: servicio = "Gmail", usuario = "lara123", contenido = la contraseña.
 public class Credencial extends Secreto {
 
+    // Atributos private: solo esta clase los puede tocar directamente
     private String usuario;
     private String servicio;
 
+    // Constructor: lo usan las clases hijas con super([parametros extras])
     public Credencial(String id, String nombre, String hashNombre, String contenidoCifrado,
                       String usuario, String servicio) {
-        // super(...) llama al constructor de Secreto
+        // super sirve para llamar al constructor de la clase padre (Secreto) y pasarle los parametros que necesita
         super(id, nombre, hashNombre, contenidoCifrado);
         setUsuario(usuario);
         setServicio(servicio);
     }
 
+    // Getters o "obtenedores": permiten leer los atributos private desde afuera de la clases
     public String getUsuario() {
         return usuario;
     }
@@ -23,6 +26,7 @@ public class Credencial extends Secreto {
         return servicio;
     }
 
+    // Setters O "asignadores": permiten cambiar los atributos private desde afuera de la clase)
     public void setUsuario(String usuario) {
         if (usuario == null || usuario.isBlank()) {
             throw new IllegalArgumentException("El usuario no puede estar vacio");
@@ -37,7 +41,7 @@ public class Credencial extends Secreto {
         this.servicio = servicio;
     }
 
-    // @Override: estamos escribiendo el metodo abstracto que pidio Secreto
+    // @Override indica que este metodo reemplaza al metodo mostrarDetalle de la clase padre (Secreto)
     @Override
     public void mostrarDetalle(String contenidoPlano) {
         System.out.println("----- CREDENCIAL -----");
