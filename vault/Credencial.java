@@ -4,7 +4,7 @@ package vault;
 // Ejemplo: servicio = "Gmail", usuario = "lara123", contenido = la contraseña.
 public class Credencial extends Secreto {
 
-    // Atributos private: solo esta clase los puede tocar directamente
+    // Atributos private: solo esta clase los puede tocar directamente y son extra de los atributos de Secreto
     private String usuario;
     private String servicio;
 
@@ -13,6 +13,7 @@ public class Credencial extends Secreto {
                       String usuario, String servicio) {
         // super sirve para llamar al constructor de la clase padre (Secreto) y pasarle los parametros que necesita
         super(id, nombre, hashNombre, contenidoCifrado);
+        //set sirve para validar y guardar el usuario y servicio de esta clase (Credencial)
         setUsuario(usuario);
         setServicio(servicio);
     }
