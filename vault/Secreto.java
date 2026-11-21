@@ -12,16 +12,21 @@ public abstract class Secreto {
 
     // Constructor: lo usan las clases hijas con super([parametros extras])
     public Secreto(String id, String nombre, String hashNombre, String contenidoCifrado) {
+        // si id es null o esta vacio, lanzamos una excepcion IllegalArgumentException
         if (id == null || id.isBlank()) {
+            // Lanzamos una excepcion porque el id no puede estar vacio
             throw new IllegalArgumentException("El id no puede estar vacio");
         }
+        // esta parte se ejecuta si el id es valido: lo guardamos en el atributo
+        //this sirve para referirnos al atributo de la clase, no a la variable local del constructor
         this.id = id;
+        //set sirve para validar y guardar el nombre, hashNombre y contenidoCifrado
         setNombre(nombre);
         setHashNombre(hashNombre);
         setContenidoCifrado(contenidoCifrado);
     }
 
-    // Getters
+    // Getters o "obtenedores": permiten leer los atributos private desde afuera de la clasex
     public String getId() {
         return id;
     }
@@ -38,11 +43,14 @@ public abstract class Secreto {
         return contenidoCifrado;
     }
 
-    // Setters final: las clases hijas no los pueden cambiar (sobrescribir)
+    // Setters O "asignadores": permiten cambiar los atributos private desde afuera de la clase)
     public final void setNombre(String nombre) {
+        // Validamos que el nombre no sea null ni vacio
         if (nombre == null || nombre.isBlank()) {
+            // Lanzamos una excepcion porque el nombre no puede estar vacio
             throw new IllegalArgumentException("El nombre no puede estar vacio");
         }
+        // Si el nombre es valido, lo guardamos en el atributo
         this.nombre = nombre;
     }
 
