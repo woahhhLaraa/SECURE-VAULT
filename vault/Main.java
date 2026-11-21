@@ -1,12 +1,14 @@
 package vault;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Scanner;
+import java.nio.file.Files; // para preguntar cosas del archivo por ejemplo ahorita es maestro.hash
+import java.nio.file.Path;  // para crear la ruta del archivo en este caso es maestro.hash
+import java.util.Scanner;   // para leer lo que el usuario escribe en la consola
 
 public class Main {
 
+    //String[] args: argumentos de la línea de comandos. No los usamos, pero Java exige que estén.
     public static void main(String[] args) {
+        //scanner crea el lector de teclado. System.in es "la entrada estándar", es decir, el teclado. Se crea una sola vez y se reutiliza todo el programa
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("===== SECURE VAULT =====");

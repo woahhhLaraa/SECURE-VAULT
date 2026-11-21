@@ -6,8 +6,11 @@ public class NotaTexto extends Secreto {
 
     private String categoria;
 
+    // Constructor: lo usan las clases hijas con super([parametros extras])
     public NotaTexto(String id, String nombre, String hashNombre, String contenidoCifrado,
                      String categoria) {
+                        
+        // super sirve para llamar al constructor de la clase padre (Secreto) y pasarle los parametros que necesita
         super(id, nombre, hashNombre, contenidoCifrado);
         setCategoria(categoria);
     }
