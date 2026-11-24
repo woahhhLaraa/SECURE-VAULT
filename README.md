@@ -1,30 +1,38 @@
 # Secure Vault
 
-Proyecto final de Lenguajes y Paradigmas de Programación: baúl digital de secretos en consola (Java).
+Programa de consola en Java para guardar contraseñas y notas protegidas con una clave maestra.
+Proyecto final de Lenguajes y Paradigmas de Programación.
 
-## Estructura
+## Qué va a hacer
 
-```
-SECURE-VAULT/
-├── vault/
-│   ├── Secreto.java        (clase abstracta)
-│   ├── Credencial.java
-│   ├── NotaTexto.java
-│   ├── Cifrable.java       (interfaz)
-│   ├── CifradorXor.java
-│   ├── Hasheador.java
-│   ├── GestorBoveda.java
-│   └── Main.java
-└── vault_data/             (la crea la aplicación al ejecutarse)
-```
+- La primera vez pide crear una clave maestra; las siguientes, pide escribirla.
+- Guarda dos tipos de secretos: **credenciales** (servicio, usuario y contraseña) y **notas** (categoría y texto).
+- Desde un menú se puede crear, ver, modificar, eliminar y buscar secretos, y cambiar la clave maestra.
+- Todo se guarda en la carpeta `vault_data/`: los secretos cifrados y la clave maestra como hash (SHA-256).
 
-## Requisitos
+## Cómo va
 
-- JDK 17 o superior (`javac -version`)
+- **Listo:** `Secreto`, `Credencial`, `NotaTexto`, `Hasheador` y el menú de `Main`.
+- **Falta:** `GestorBoveda`, el cifrado de `CifradorXor` y conectar el menú (por ahora cada opción dice «Pendiente»).
 
-## Compilación y ejecución
+## Archivos
 
-Desde la carpeta `SECURE-VAULT/`:
+| Archivo | Para qué sirve |
+|---|---|
+| `Secreto.java` | Molde general de un secreto (clase abstracta). |
+| `Credencial.java` | Secreto con servicio y usuario. |
+| `NotaTexto.java` | Secreto con categoría. |
+| `Cifrable.java` | Interfaz: cifrar y descifrar. |
+| `CifradorXor.java` | Cifrado XOR con la clave maestra. |
+| `Hasheador.java` | Saca el hash SHA-256 de un texto. |
+| `GestorBoveda.java` | Guarda, busca y administra los secretos. |
+| `Main.java` | Arranque y menú. |
+
+Todos están en `vault/`.
+
+## Cómo correrlo
+
+Necesitas Java 17 o más nuevo. Desde la carpeta `SECURE-VAULT/`:
 
 ```
 javac -encoding UTF-8 vault/*.java
@@ -33,87 +41,6 @@ java vault.Main
 
 ## Diagrama de clases
 
-> Los métodos de `GestorBoveda` son una propuesta y siguen en discusión hasta que el equipo cierre las firmas.
-> El código fuente del diagrama está en [`docs/diagrama-clases.mmd`](docs/diagrama-clases.mmd) y hay una versión en imagen en [`docs/diagrama-clases.png`](docs/diagrama-clases.png).
+![Diagrama de clases](docs/diagrama-clases.png)
 
-```mermaid
-classDiagram
-    direction TB
-
-    class Secreto {
-        <<abstract>>
-        -String id
-        -String nombre
-        -String hashNombre
-        -String contenidoCifrado
-        +getId() String
-        +getNombre() String
-        +getHashNombre() String
-        +getContenidoCifrado() String
-        +setNombre(String) void  «final»
-        +setHashNombre(String) void  «final»
-        +setContenidoCifrado(String) void  «final»
-        +mostrarDetalle(String contenidoPlano)* void
-    }
-
-    class Credencial {
-        -String usuario
-        -String servicio
-        +mostrarDetalle(String contenidoPlano) void
-    }
-
-    class NotaTexto {
-        -String categoria
-        +mostrarDetalle(String contenidoPlano) void
-    }
-
-    class Cifrable {
-        <<interface>>
-        +cifrar(String textoPlano, String claveMaestra) String
-        +descifrar(String textoCifradoBase64, String claveMaestra) String
-    }
-
-    class CifradorXor {
-        +cifrar(String textoPlano, String claveMaestra) String
-        +descifrar(String textoCifradoBase64, String claveMaestra) String
-    }
-
-    class Hasheador {
-        <<utilidad>>
-        -Hasheador()
-        +hasheador(String palabraClave)$ String
-    }
-
-    class Tipo {
-        <<enumeration>>
-        CREDENCIAL
-        NOTA
-    }
-
-    class GestorBoveda {
-        -Cifrable cifrador
-        +crearBoveda(String clave) void
-        +login(String clave) boolean
-        +cambiarClave(String nueva) void
-        +crear(Secreto s, String contenidoPlano) void
-        +leer(String id) Secreto
-        +modificar(String id, ...) void
-        +eliminar(String id) void
-        +listar() List~Secreto~
-        +buscar(String nombre) List~Secreto~
-        +buscar(Tipo tipo) List~Secreto~
-    }
-
-    class Main {
-        +main(String[] args)$ void
-    }
-
-    Secreto <|-- Credencial
-    Secreto <|-- NotaTexto
-    Cifrable <|.. CifradorXor
-    GestorBoveda --> Cifrable : usa
-    GestorBoveda ..> Hasheador : usa
-    GestorBoveda --> Secreto : administra
-    GestorBoveda *-- Tipo : define
-    Main --> GestorBoveda : usa
-```
+Los métodos de `GestorBoveda` todavía pueden cambiar. El código del diagrama está en [`docs/diagrama-clases.mmd`](docs/diagrama-clases.mmd).
